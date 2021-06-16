@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PaperformFormController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('app');
-});
+Route::get('/', [PaperformFormController::class, 'indexPaperform'])->name('paperform.index');
+
+Route::get('/paperform', [PaperformFormController::class, 'createPaperform'])->name('paperform.create');
+
+Route::post('/paperform', [PaperformFormController::class, 'storePaperform'])->name('paperform.store');
+
+Route::get('/form/{url}', [
+    'as' => 'paperform.show',
+    'uses' => 'App\Http\Controllers\PaperformFormController@showForm',
+])->name('paperform.show');
+
+Route::get('/edit_paperform/{id}', [
+    'uses' => 'App\Http\Controllers\PaperformFormController@edit',
+])->name('paperform.edit');
+
+Route::put('/paperform/{id}', [PaperformFormController::class, 'update'])->name('paperform.update');
