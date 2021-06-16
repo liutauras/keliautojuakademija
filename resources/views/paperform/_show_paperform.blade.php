@@ -1,5 +1,9 @@
 @extends('app')
 
+@section('template_title')
+Paperform'os užpildymas
+@endsection
+
 @section('content')
     <div class="form-group">
         <label>Pavadinimas</label>
@@ -19,53 +23,30 @@
 
     <div class="form-group">
         <label>Puslapis</label>
-        <input type="text" class="form-control" name="puslapis" id="puslapis" value="{{ old('puslapis') }}">
-        @if ($errors->has('puslapis'))
-            <div class="error">
-                {{ $errors->first('puslapis') }}
-            </div>
-        @endif
+        <p>{{ $paperform->puslapis }}</p>
     </div>
 
     <div class="form-group">
         <label>Vardas</label>
-        <input type="text" class="form-control" name="vardas" id="vardas" value="{{ old('vardas') }}">
-        @if ($errors->has('vardas'))
-            <div class="error">
-                {{ $errors->first('vardas') }}
-            </div>
-        @endif
+        <p>{{ $paperform->vardas }}</p>
     </div>
 
     <div class="form-group">
         <label>Telefonas</label>
-        <input type="text" class="form-control" name="tel" id="tel" value="{{ old('tel') }}">
-        @if ($errors->has('tel'))
-            <div class="error">
-                {{ $errors->first('tel') }}
-            </div>
-        @endif
+        <p>{{ $paperform->tel }}</p>
     </div>
 
     <div class="form-group">
         <label>El. paštas</label>
-        <input type="text" class="form-control" name="el_pastas" id="el_pastas" value="{{ old('el_pastas') }}">
-        @if ($errors->has('el_pastas'))
-            <div class="error">
-                {{ $errors->first('el_pastas') }}
-            </div>
-        @endif
+        <p>{{ $paperform->el_pastas }}</p>
     </div>
 
     <div class="form-group">
         <label>Užklausa</label>
-        <input type="text" class="form-control" name="uzklausa" id="uzklausa" value="{{ old('uzklausa') }}">
-        @if ($errors->has('uzklausa'))
-            <div class="error">
-                {{ $errors->first('uzklausa') }}
-            </div>
-        @endif
+        <p>{{ $paperform->uzklausa }}</p>
     </div>
+    
+    <div data-paperform-id="bandomiji-forma"></div><script>(function() {var script = document.createElement('script'); script.src = "https://paperform.co/__embed.min.js"; document.body.appendChild(script); })()</script>
     
     <a href="{{ route('paperform.index') }}" class="btn btn-primary  btn-block">Į pradžią</a>
 @stop

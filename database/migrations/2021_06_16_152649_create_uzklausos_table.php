@@ -15,6 +15,11 @@ class CreateUzklausosTable extends Migration
     {
         Schema::create('uzklausos', function (Blueprint $table) {
             $table->id();
+            $table->text('puslapis');
+            $table->string('vardas', 255);
+            $table->string('tel', 255);
+            $table->string('el_pastas', 255);
+            $table->string('uzklausa');
             $table->timestamps();
         });
     }
