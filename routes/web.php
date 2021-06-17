@@ -27,9 +27,11 @@ Route::get('/edit_paperform/{id}', [
 
 Route::put('/paperform/{id}', [PaperformFormController::class, 'update'])->name('paperform.update');
 
+//Route::get('paperform/delete/{id}', [PaperformFormController::class, 'delete'])->name('paperform.delete');
+Route::delete('paperform/destroy/{id}', [PaperformFormController::class, 'destroy'])->name('paperform.destroy');
 
 Route::post('/{url}/webhook', 'App\Http\Controllers\Webhooks\PaperformWebhookController@handle')->name('paperform.webhook');
-Route::get('/{url}/webhook', 'App\Http\Controllers\Webhooks\PaperformWebhookController@handle')->name('paperform.update');
+//Route::get('/{url}/webhook', 'App\Http\Controllers\Webhooks\PaperformWebhookController@handle')->name('paperform.webhook');
 
 Route::get('/paperform/success', [PaperformFormController::class, 'success'])->name('paperform.success');
 

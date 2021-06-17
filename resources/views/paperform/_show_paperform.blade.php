@@ -51,7 +51,7 @@ Prašome užpildyti formos duomenis
         <p>{{ $paperform->uzklausa }}</p>
     </div>
 -->
-    <div data-paperform-id="bandomiji-forma" data-prefill="dbr95={{ $paperform->url }}"></div><script>(function() {var script = document.createElement('script'); script.src = "https://paperform.co/__embed.min.js?dbr95={{ $paperform->url }}"; document.body.appendChild(script); })()</script>
+    {!!    $paperform->paperform_code    !!}
     
     <a href="{{ route('paperform.index') }}" class="btn btn-primary  btn-block">Į pradžią</a>
 @stop

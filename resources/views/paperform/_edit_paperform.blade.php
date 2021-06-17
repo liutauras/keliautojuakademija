@@ -48,7 +48,7 @@ Paperform redagavimas
     </div>
     
     <div class="form-group">
-        <label>Url</label>
+        <label>Url - mūsų tinklapyje ši forma bus matoma su čia nurodytu adresu</label>
         <input type="text" class="form-control" name="url" id="url" value="{{ old('url') != '' ?  old('url') : $paperform->url }}">
         @if ($errors->has('url'))
             <div class="error">
@@ -58,8 +58,8 @@ Paperform redagavimas
     </div>
     
     <div class="form-group">
-        <label>paperform_code</label>
-        <input type="text" class="form-control" name="paperform_code" id="paperform_code" value="{{ old('paperform_code') != '' ?  old('paperform_code') : $paperform->paperform_code }}">
+        <label>paperform_code - formos html kodas paperform sistemoje</label>
+        <textarea name="paperform_code" id="paperform_code" cols="" rows="4" class="form-control">{{ old('paperform_code') != '' ?  old('paperform_code') : $paperform->paperform_code }}</textarea>
         @if ($errors->has('paperform_code'))
             <div class="error">
                 {{ $errors->first('paperform_code') }}

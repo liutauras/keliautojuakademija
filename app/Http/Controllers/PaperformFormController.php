@@ -98,7 +98,7 @@ class PaperformFormController extends Controller
             //$validator = Validator::make($request->all(),
                 [
                     'pavadinimas'     => 'required',
-                    'url'             => 'required',
+                    'url'             => 'required|unique:paperforms,url,'.$paperform->id,
                     'paperform_code'  => 'required',
                     'puslapis'        => 'required',
                     'vardas'          => 'required',
@@ -126,4 +126,21 @@ class PaperformFormController extends Controller
         
         return view('paperform._success_paperform', ['data'  =>  $data]);
     }
+    
+    public function delete($id)
+    {
+        $paperform    = Paperform::findOrFail($id);
+
+        return view('paperform._delete_paperform', compact('paperform'));
+    }
+    
+    public function destroy($id)
+    {
+        $paperform    = Paperform::findOrFail($id);
+        
+        $paperform->delete();
+
+        return redirect()->route('paperform.index');
+    }
+
 }
