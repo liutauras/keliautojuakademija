@@ -119,4 +119,11 @@ class PaperformFormController extends Controller
                 ->view('errors.404', $data, 404);
         }
     }
+    
+    public function success(Request $request) {
+        
+        $data = $request->all();
+        
+        return view('paperform._success_paperform', ['data'  =>  $data]);
+    }
 }

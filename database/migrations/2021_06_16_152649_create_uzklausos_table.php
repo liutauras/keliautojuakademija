@@ -19,7 +19,7 @@ class CreateUzklausosTable extends Migration
             $table->string('vardas', 255);
             $table->string('tel', 255);
             $table->string('el_pastas', 255);
-            $table->string('uzklausa');
+            $table->mediumText('uzklausa');
             $table->timestamps();
         });
     }

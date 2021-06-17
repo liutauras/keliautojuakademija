@@ -4,6 +4,10 @@
 Sukurti naują paperform integraciją
 @endsection
 
+@section('template_h1')
+Sukurti naują paperform integraciją
+@endsection
+
 @section('content')
 
     <!-- Success message -->

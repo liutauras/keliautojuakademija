@@ -4,6 +4,10 @@
 Redaguojama PaperformID: {{ $paperform->id }}
 @endsection
 
+@section('template_h1')
+Paperform redagavimas
+@endsection
+
 @section('content')
 
     <!-- Success message -->

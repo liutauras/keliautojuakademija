@@ -4,6 +4,10 @@
 Visos sukurtos paperform'os
 @endsection
 
+@section('template_h1')
+Visos paperform formos
+@endsection
+
 @section('content')
 
     <a href="{{ route('paperform.create') }}">Sukurti naują</a>

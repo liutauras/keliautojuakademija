@@ -12,7 +12,8 @@
 
 <body>
     <div class="container mt-5">
-
+        <h1>@yield('template_h1')</h1>
+        
         @yield('content')
 
     </div>
