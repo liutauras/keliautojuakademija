@@ -19,6 +19,8 @@ Route::get('/', [PaperformFormController::class, 'indexPaperform'])->name('paper
 
 Route::get('/paperform', [PaperformFormController::class, 'createPaperform'])->name('paperform.create');
 
+Route::get('/paperform/uzklausos/{id}', [PaperformFormController::class, 'uzklausos'])->name('paperform.uzklausos');
+
 Route::post('/paperform', [PaperformFormController::class, 'storePaperform'])->name('paperform.store');
 
 Route::get('/edit_paperform/{id}', [
@@ -27,11 +29,11 @@ Route::get('/edit_paperform/{id}', [
 
 Route::put('/paperform/{id}', [PaperformFormController::class, 'update'])->name('paperform.update');
 
-//Route::get('paperform/delete/{id}', [PaperformFormController::class, 'delete'])->name('paperform.delete');
 Route::delete('paperform/destroy/{id}', [PaperformFormController::class, 'destroy'])->name('paperform.destroy');
 
 Route::post('/{url}/webhook', 'App\Http\Controllers\Webhooks\PaperformWebhookController@handle')->name('paperform.webhook');
-//Route::get('/{url}/webhook', 'App\Http\Controllers\Webhooks\PaperformWebhookController@handle')->name('paperform.webhook');
+
+
 
 Route::get('/paperform/success', [PaperformFormController::class, 'success'])->name('paperform.success');
 

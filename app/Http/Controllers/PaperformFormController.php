@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Paperform;
+use App\Models\Uzklausa;
+use App\Http\Services\PaperformServices;
 
 class PaperformFormController extends Controller
 {
@@ -61,7 +63,7 @@ class PaperformFormController extends Controller
      */
     public function showForm(Request $request, $url)
     {
-        $paperform = Paperform::where('url', $url)->get()->first();
+        $paperform = Paperform::where('url', $request->fullUrl())->get()->first();
 
         if ($paperform) {
         
@@ -141,6 +143,38 @@ class PaperformFormController extends Controller
         $paperform->delete();
 
         return redirect()->route('paperform.index');
+    }
+    
+    public function uzklausos(Request $request, $id) {
+        
+        $paperform    = Paperform::findOrFail($id);
+        
+        if($paperform) {
+            
+            $uzklausos = Uzklausa::where('puslapis', '=', $paperform->url)->get();
+            $uzklausos_updated = [];
+            foreach($uzklausos as $uzklausa) {
+                        
+                // $data               = $request->data;
+                // $uzklausa           = new Uzklausa();
+                $paperformService   = new PaperformServices();
+                $uzklausa->keliatoju_skaicius  = $paperformService->getKeliautojuSkaiciusValue(unserialize($uzklausa->uzklausa));
+                $uzklausa->kiti_pageidavimai   = $paperformService->getKitiPageidavikaiValue(unserialize($uzklausa->uzklausa));
+                $uzklausa->pageidaujamos_salys = $paperformService->getPageidaujamosSalysValue(unserialize($uzklausa->uzklausa));
+                $uzklausos_updated[] = $uzklausa;
+                
+                //'$keliatoju_skaicius, $kiti_pageidavimai, $pageidaujamos_salys;
+                //dd($keliautojaiValue);
+            }
+            
+            return view('paperform._uzklausos_paperform', ['uzklausos' => $uzklausos_updated, 'paperform' => $paperform]);
+        } else {
+            $data['title'] = '404';
+            $data['name'] = 'Paperform neegzistuoja';
+            
+            return response()
+                ->view('errors.404', $data, 404);
+        }
     }
 
 }

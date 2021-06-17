@@ -22,11 +22,14 @@ Visos paperform formos
                 <div class="col-5">
                     {{ $paperform->pavadinimas }}
                 </div>
-                <div class="col-3">
-                    <a href="{{ route('paperform.showpaperform.show', $paperform->url) }}" class="btn btn-secondary btn-block">Užpildyti formą</a>
+                <div class="col-2">
+                    <a href="{{ $paperform->url }}" class="btn btn-secondary btn-block">Užpildyti formą</a>
                 </div>
-                <div class="col-3">
+                <div class="col-2">
                     <a href="{{ route('paperform.edit', $paperform->id) }}" class="btn btn-primary  btn-block">Redaguoti</a>
+                </div>
+                <div class="col-2">
+                    <a href="{{ route('paperform.uzklausos', $paperform->id) }}" class="btn btn-primary  btn-block">Užklausos</a>
                 </div>
                 <div class="col-1">
                     <form method="POST" action="{{ route('paperform.destroy', [ 'id'=> $paperform->id ]) }}" style="padding: 0; border: 0px;">
