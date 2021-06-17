@@ -20,28 +20,28 @@ class PaperformWebhookController extends Controller
         //$paperformde = new PaperformDataExtractor();
         // move to service class
         $paperform = Paperform::where('url', $url)->get()->first();
-        $key_name = [
-            ['title' => 'Vardas',       'model_param' => 'vardas'],
-            ['title' => 'Telefonas',    'model_param' => 'tel'],
-            ['title' => 'El. paštas',   'model_param' => 'el_pastas'],
-            ['title' => 'URL',          'model_param' => 'puslapis'],
-        ];
+        // $key_name = [
+        //     ['title' => 'Vardas',       'model_param' => 'vardas'],
+        //     ['title' => 'Telefonas',    'model_param' => 'tel'],
+        //     ['title' => 'El. paštas',   'model_param' => 'el_pastas'],
+        //     ['title' => 'URL',          'model_param' => 'puslapis'],
+        // ];
         
-        
-
         if ($paperform) {
         
             $uzklausa = new Uzklausa();
-            
-            foreach($data as $data_item) {
-                if(is_array($data_item)) {
-                    foreach($key_name as $kn) {
-                        if($data_item['title'] == $kn['title']) {
-                            $uzklausa->{$kn['model_param']} = $data_item['value'];
-                        }
-                    }
-                }
-            }
+            $paperformService = new PaperformServices();
+            $uzklausa = $paperformService->setUzklausaModelData($uzklausa, $data);
+        
+            // foreach($data as $data_item) {
+            //     if(is_array($data_item)) {
+            //         foreach($key_name as $kn) {
+            //             if($data_item['title'] == $kn['title']) {
+            //                 $uzklausa->{$kn['model_param']} = $data_item['value'];
+            //             }
+            //         }
+            //     }
+            // }
             // $uzklausa->puslapis = $url;
             $uzklausa->uzklausa = serialize($request->data);
             $uzklausa->save();
