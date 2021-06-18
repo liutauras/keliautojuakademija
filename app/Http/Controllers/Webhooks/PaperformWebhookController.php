@@ -16,7 +16,9 @@ class PaperformWebhookController extends Controller
     //
     public function handle(Request $request, $url)
     {
-        $paperform = Paperform::where('url', $url)->get()->first();
+        $paperform = Paperform::where('url', $request->url)->get()->first();
+        //$paperform = Paperform::where('url', 'like', '%'.$url)->get()->first();
+        //where($column, 'like', '%'.$value.'%');
         
         if ($paperform) {
             
@@ -30,6 +32,7 @@ class PaperformWebhookController extends Controller
             
             return 'OK';
         } else {
+            //dd($url);
             return 'BAD';
         }
     }
