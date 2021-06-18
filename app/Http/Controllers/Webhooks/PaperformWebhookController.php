@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Log;
 use App\Models\Uzklausa;
 use App\Providers\PaperformDataExtractor;
 use Hamcrest\Arrays\IsArray;
-use App\Http\Sevices\PaperformServices;
+use App\Http\Services\PaperformServices;
 
 class PaperformWebhookController extends Controller
 {
