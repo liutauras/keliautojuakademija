@@ -3,6 +3,7 @@
 namespace App\Http\Services;
 
 use App\Models\Uzklausa;
+use App\Models\Paperform;
 
 class PaperformServices {
 
@@ -28,6 +29,58 @@ class PaperformServices {
             ['title' => 'Keliautojų skaičius'],
             ['title' => 'Kiti pageidavimai'],
         ];
+    }
+    
+    public function getUzklausosSuDuomenimis(Paperform $paperform, $uzklausos) {
+        
+        $vardas_key     = $paperform->vardas;
+        $tel_key        = $paperform->tel;
+        $puslapis_key   = $paperform->puslapis;
+        $el_pastas_key  = $paperform->el_pastas;
+        $uzklasos_keys  = $paperform->uzklausa;
+        
+        $uzklausos_upd = [];
+        foreach($uzklausos as $uzklausa) {
+            
+            $uzklausa->vardas       = $this->getUzklausosDuomenisPagalKey($uzklausa, $vardas_key);
+            $uzklausa->tel          = $this->getUzklausosDuomenisPagalKey($uzklausa, $tel_key);
+            $uzklausa->el_pastas    = $this->getUzklausosDuomenisPagalKey($uzklausa, $el_pastas_key);
+            $uzklausa->puslapis     = $this->getUzklausosDuomenisPagalKey($uzklausa, $puslapis_key);
+            $uzklausos_checkboxinis_arr     = unserialize($uzklausa->uzklausa);
+            //dd($uzklausos_keys_arr);
+            foreach($uzklausos_checkboxinis_arr as $item) {
+                
+                $u = $this->getUzklausosDuomenisPagalKey($uzklausa, $item['key'], false);
+                //dd($u);
+                if($u['title'] == 'Pageidaujamos šalys') {
+                    $uzklausa->pageidaujamos_salys = implode(", ", $u['value']);
+                } else if ($u['title'] == 'Keliautojų skaičius') {
+                    //dd($u);
+                    $uzklausa->keliatoju_skaicius = $u['value'];
+                } else if ($u['title'] == 'Kiti pageidavimai') {
+                    $uzklausa->kiti_pageidavimai = implode(", ", $u['value']);
+                }
+            }
+            $uzklausos_upd[] = $uzklausa;
+            //implode(", ", $uzklausa->kiti_pageidavimai)
+        }
+        
+        return $uzklausos_upd;
+    }
+    
+    public function getUzklausosDuomenisPagalKey($uzklausa, $key_code, $tik_value = true) {
+        //dd(unserialize($uzklausa->uzklausa));
+        $uzklausa_objektas = unserialize($uzklausa->uzklausa);
+        //dd($uzklausa_objektas);
+        foreach($uzklausa_objektas as $item) {
+            if($item['key'] == $key_code) {
+                if($tik_value == true) {
+                    return $item['value'];
+                } else {
+                    return ['value' => $item['value'], 'title' => $item['title']];
+                }
+            }
+        }
     }
     
     

@@ -152,22 +152,18 @@ class PaperformFormController extends Controller
         if($paperform) {
             
             $uzklausos = Uzklausa::where('puslapis', '=', $paperform->url)->get();
-            $uzklausos_updated = [];
-            foreach($uzklausos as $uzklausa) {
-                        
-                // $data               = $request->data;
-                // $uzklausa           = new Uzklausa();
-                $paperformService   = new PaperformServices();
-                $uzklausa->keliatoju_skaicius  = $paperformService->getKeliautojuSkaiciusValue(unserialize($uzklausa->uzklausa));
-                $uzklausa->kiti_pageidavimai   = $paperformService->getKitiPageidavikaiValue(unserialize($uzklausa->uzklausa));
-                $uzklausa->pageidaujamos_salys = $paperformService->getPageidaujamosSalysValue(unserialize($uzklausa->uzklausa));
-                $uzklausos_updated[] = $uzklausa;
+            //dd($uzklausos);
+            $paperformService   = new PaperformServices();
+            $uzklausos = $paperformService->getUzklausosSuDuomenimis($paperform, $uzklausos);
+                //$uzklausa->kiti_pageidavimai   = $paperformService->getKitiPageidavikaiValue(unserialize($uzklausa->uzklausa));
+                //$uzklausa->pageidaujamos_salys = $paperformService->getPageidaujamosSalysValue(unserialize($uzklausa->uzklausa));
+                //$uzklausos_updated[] = $uzklausa;
                 
                 //'$keliatoju_skaicius, $kiti_pageidavimai, $pageidaujamos_salys;
                 //dd($keliautojaiValue);
-            }
             
-            return view('paperform._uzklausos_paperform', ['uzklausos' => $uzklausos_updated, 'paperform' => $paperform]);
+            //dd($uzklausos);
+            return view('paperform._uzklausos_paperform', ['uzklausos' => $uzklausos, 'paperform' => $paperform]);
         } else {
             $data['title'] = '404';
             $data['name'] = 'Paperform neegzistuoja';
