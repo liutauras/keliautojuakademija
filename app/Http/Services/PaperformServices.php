@@ -35,6 +35,7 @@ class PaperformServices {
         
         $vardas_key     = $paperform->vardas;
         $tel_key        = $paperform->tel;
+        //$url_key        = $paperform->url;
         $puslapis_key   = $paperform->puslapis;
         $el_pastas_key  = $paperform->el_pastas;
         $uzklasos_keys  = $paperform->uzklausa;
@@ -83,14 +84,30 @@ class PaperformServices {
         }
     }
     
+    public function getUrlParameterByTitleFromData(Array $data, $param_title = 'URL') {
+
+        foreach($data as $data_item) {
+            if($data_item['title'] == $param_title) {
+                return $data_item['value'];
+            }
+        }
+    }
+    
     
     public function setUzklausaModelData(Uzklausa $uzklausa, Array $data) {
         
         $key_name = $this->getKeyNameConfig();
-        
+        //var_dump($data);
         foreach($data as $data_item) {
             if(is_array($data_item)) {
                 foreach($key_name as $kn) {
+                    //dd($data_item);
+                    if(!array_key_exists('title', $data_item)) {
+                        //echo "1:"; var_dump($data_item); // regis cia beda yra
+                    }
+                    if(!array_key_exists('title', $kn)) {
+                        //echo "2:"; dd($kn);
+                    }
                     if($data_item['title'] == $kn['title']) {
                         $uzklausa->{$kn['model_param']} = $data_item['value'];
                     }

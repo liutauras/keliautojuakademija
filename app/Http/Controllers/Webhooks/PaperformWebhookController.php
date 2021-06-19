@@ -16,7 +16,13 @@ class PaperformWebhookController extends Controller
     //
     public function handle(Request $request, $url)
     {
-        $paperform = Paperform::where('url', $request->url)->get()->first();
+        $paperformService   = new PaperformServices();
+        $url                = $paperformService->getUrlParameterByTitleFromData($request->data);
+
+        $paperform          = Paperform::where('url', $url)->get()->first();
+        //$paperform = Paperform::where('url', $url)->get()->first();
+        //URL keykode: dbr95
+        //$paperform = Paperform::where('url', $request->data->url)->get()->first();
         //$paperform = Paperform::where('url', 'like', '%'.$url)->get()->first();
         //where($column, 'like', '%'.$value.'%');
         
@@ -24,7 +30,6 @@ class PaperformWebhookController extends Controller
             
             $data               = $request->data;
             $uzklausa           = new Uzklausa();
-            $paperformService   = new PaperformServices();
             $uzklausa           = $paperformService->setUzklausaModelData($uzklausa, $data);
             
             $uzklausa->uzklausa = serialize($request->data);
