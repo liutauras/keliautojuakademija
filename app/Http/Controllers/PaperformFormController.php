@@ -155,12 +155,6 @@ class PaperformFormController extends Controller
             //dd($uzklausos);
             $paperformService   = new PaperformServices();
             $uzklausos = $paperformService->getUzklausosSuDuomenimis($paperform, $uzklausos);
-                //$uzklausa->kiti_pageidavimai   = $paperformService->getKitiPageidavikaiValue(unserialize($uzklausa->uzklausa));
-                //$uzklausa->pageidaujamos_salys = $paperformService->getPageidaujamosSalysValue(unserialize($uzklausa->uzklausa));
-                //$uzklausos_updated[] = $uzklausa;
-                
-                //'$keliatoju_skaicius, $kiti_pageidavimai, $pageidaujamos_salys;
-                //dd($keliautojaiValue);
             
             //dd($uzklausos);
             return view('paperform._uzklausos_paperform', ['uzklausos' => $uzklausos, 'paperform' => $paperform]);
